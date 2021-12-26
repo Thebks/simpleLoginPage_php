@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: loginapp
+    container_name: app
+    restart: unless-stopped
+    ports:
+      - "8091:9000"
+    volumes: 
+    - ./:/var/www
+
+
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile_Nginx.dockerfile
+    image: nginx
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+    volumes:
+      - ./:/var/www
+      - ./config/nginx/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    environment:
+      MYSQL_DATABASE: loginproject
+      MYSQL_ROOT_PASSWORD: rootadmin
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
+    driver: local
+
+
