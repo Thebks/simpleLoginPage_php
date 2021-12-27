@@ -18,7 +18,7 @@ if(isset($_POST)){
 
     $login->loginUser();
 
-    header("Location: ./index.php?error=none");
-} else {
-    print_r($_POST);
-}
+    //go to the home page
+
+    header("Location: ./landingpage.php?error=none");
+} 
