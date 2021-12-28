@@ -50,6 +50,8 @@ class Login extends dbh {
             session_start();
             $_SESSION["userid"] = $user[0]["id"];
             $_SESSION["useremail"] = $user[0]["email"];
+            //$_SESSION["first_name"] = $user[0]["first_name"];
+            //$_SESSION["user_email"] = true;
 
             $stmt = null;
         }
