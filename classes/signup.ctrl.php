@@ -18,6 +18,36 @@ class signupCtrl extends signup {
         
     }
 
+    public function signupUser(){
+
+        if($this->emptyInput() == false){
+            echo  "empty input!";
+            header("Location: ../index.signup.php?error=emptyinput");
+            exit();
+        }
+
+        if($this->invalidEmail() == false){
+            echo "Invalid Email!";
+            header("Location: ../index.signup.php?error=email");
+            exit(); 
+        }
+
+        if($this->passMatch() == false){
+            echo "password doesnt match!";
+            header("Location: ../index.signup.php?error=password");
+            exit();
+        }
+
+        if($this->userExistCheck() == false){
+            echo "user already exist";
+            header("Location: ../index.signup.php?error=emailtaken");
+            exit();
+        }
+
+        $this->setUser($this->firstName, $this->lastName, $this->email, $this->pass);
+
+    }
+
     private function emptyInput(){
 
         $result = false;
@@ -59,7 +89,7 @@ class signupCtrl extends signup {
 
     private function userExistCheck(){
         $result = false;
-        if ($this->checkUser($this->$email)){
+        if (!$this->checkUser($this->email)){
             $result = false;
         }
         else{

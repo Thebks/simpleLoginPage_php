@@ -11,7 +11,7 @@ if (isset($_POST["submit"])){
 
     //signup controller class
     
-    include "../login_project3/Database.php";
+    include "../Database.php";
     include "../classes/signup.classes.php";
     include "../classes/signup.ctrl.php";
     
@@ -20,9 +20,10 @@ if (isset($_POST["submit"])){
 
     //error handlers
     
-    $signup->signupUser();  
+    $signup->signupUser();
 
 
     //going back
+    header("Location: ../index.php?error=none");
 
 }
